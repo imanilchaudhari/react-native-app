@@ -55,29 +55,38 @@ export default class LoginComponent extends Component {
 									});
 									return;
 								}
-								fetch('http://107.170.26.5/api/v1/'+'users/login?username='+this.state.username+'&password='+this.state.password)
-									.then((response) => response.json())
-									.then((responseJson) => {
-										if (responseJson == false) {
-											Toast.show({
-												text: 'Username and password mismatch',
-												position: 'bottom',
-												type: 'danger',
-												duration: 1000
-											});
-										} else {
-											Toast.show({
-												text: 'Logged In Successfully',
-												position: 'bottom',
-												type: 'success',
-												duration: 1000
-											});
-											AsyncStorage.setItem('userInfo', JSON.stringify(responseJson), () => navigate('Main'));
-										}
-									})
-									.catch((error) => {
-										console.error(error);
-									});
+								fetch('http://107.170.26.5/api/v1/auth/login', {
+                                    method: 'POST',
+                                    headers: {
+                                    'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        username: this.state.username,
+                                        password: this.state.password
+                                    })
+                                })
+								.then((response) => response.json())
+								.then((responseJson) => {
+									if (responseJson == false) {
+										Toast.show({
+											text: 'Username and password mismatch',
+											position: 'bottom',
+											type: 'danger',
+											duration: 1000
+										});
+									} else {
+										Toast.show({
+											text: 'Logged In Successfully',
+											position: 'bottom',
+											type: 'success',
+											duration: 1000
+										});
+										AsyncStorage.setItem('userInfo', JSON.stringify(responseJson), () => navigate('Main'));
+									}
+								})
+								.catch((error) => {
+									console.error(error);
+								});
 							}}><Text> Login </Text></Button>
 						</View>
 					</Card>

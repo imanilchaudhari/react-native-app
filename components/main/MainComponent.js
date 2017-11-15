@@ -17,7 +17,7 @@ export default class MainComponent extends Component {
         });
     }
     componentDidMount() {
-        fetch('http://107.170.26.5/api/v1/actions?access-token='+this.state.authToken)
+        fetch('http://107.170.26.5/api/v1/actions')
         .then((response) => response.json())
         .then((responseJson) => {
             this.setState({actions: responseJson});
