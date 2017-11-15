@@ -1,0 +1,15 @@
+{
+   "expo": {
+    "name": "starcity-motor-sports",
+    "icon": "./assets/icon.png",
+    "version": "1.0.0",
+    "slug": "starcity-motor-sports",
+    "sdkVersion": "21.0.0",
+    "android": {
+      "package": "com.starcity.mobileapp"
+    },
+    "ios": {
+      "bundleIdentifier": "com.starcity.mobileapp"
+    }
+   }
+ }
