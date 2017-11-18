@@ -37,15 +37,15 @@ export default class MainComponent extends Component {
                         <Title>Actions</Title>
                         </Body>
                     </Header>
-                    <Content style={{paddingBottom: 20}}>
-                    <ActivityIndicator />
+                    <Content style={{paddingTop:30, paddingBottom: 20}}>
+                        <ActivityIndicator />
                     </Content>
                 </Container>
             );
         }
         return (
             <Container>
-                <Header style={{paddingLeft: 0, paddingTop:30, paddingBottom:10, height: 70}}>
+                <Header style={{paddingLeft: 5, paddingRight: 5, paddingTop:30, paddingBottom:10, height: 70}}>
                     <Body>
                     <Title>Actions</Title>
                     </Body>
@@ -60,7 +60,32 @@ export default class MainComponent extends Component {
                 <Content>
                     <List dataArray={this.state.actions}
                     renderRow={(action) =>
-                        <ListItem style={{ marginLeft: 0, borderBottomWidth: 0, paddingBottom: 5, paddingTop: 5, paddingRight: 5, paddingLeft: 5}}>
+                        <ListItem onPress={() => {
+                            fetch('http://107.170.26.5/api/v1/tasks?access-token='+this.state.authToken, {
+                                method: 'POST',
+                                headers: {
+                                'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    action_id: action.id,
+                                    user_id: this.state.userId,
+                                    team_id: 1,
+                                    comments: ' '
+                                })
+                            })
+                            .then((response) => response.json())
+                            .then((responseJson) => {
+                                Toast.show({
+                                    text: 'Action Saved Successfully.',
+                                    position: 'bottom',
+                                    type: 'success',
+                                    duration: 1000
+                                });
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                            });
+                        }} style={{ marginLeft: 0, borderBottomWidth: 0, paddingBottom: 5, paddingTop: 5, paddingRight: 5, paddingLeft: 5}}>
                         <Card style={{marginTop: 0, marginBottom: 0, marginRight: 0, marginLeft: 0}}>
                             <CardItem>
                             <Body>
